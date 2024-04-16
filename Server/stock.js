@@ -1,7 +1,7 @@
 const bodyParser = require('body-parser');
 const express = require('express');
-const Stock = require('../Data/Stock');
-const StockController = require('../Data/Stock/stockController'); 
+const Stock = require('../Data/stock');
+const StockController = require('../Data/stock/stockController'); 
 
 function StockRouter() {
     let router = express();
@@ -9,7 +9,7 @@ function StockRouter() {
     router.use(bodyParser.json({limit: '100mb'}));
     router.use(bodyParser.urlencoded({limit: '100mb', extended: true}));
 
-    // Handle GET and POST requests for '/stock'
+    //Trata do get and post requests para '/stock'
     router.route('/stock')
         .get(function(req, res, next){
             console.log('get all stock');
@@ -19,7 +19,7 @@ function StockRouter() {
                 next();
             })
             .catch((err) => {
-                next(err); // Pass the error to error-handling middleware
+                next(err); 
             });
         })
         .post(function(req, res, next){
@@ -37,11 +37,11 @@ function StockRouter() {
                 console.log('stock already exists!');
                 err.status = err.status || 500;
                 res.status(400).send('Error creating stock');
-                next(err); // Pass the error to error-handling middleware
+                next(err); 
             });
         });
 
-    // Define GET request separately for '/stock/:id'
+    // Define GET request separately for '/stock/:id' 
     router.get('/stock/:id', function(req, res, next) {
         let id = req.params.id;
         Stock.findById(id)
@@ -55,7 +55,7 @@ function StockRouter() {
                 console.log('Stock not found');
                 err.status = err.status || 500;
                 res.status(400).send('Error finding stock');
-                next(err); // Pass the error to error-handling middleware
+                next(err); 
             });
     });
 
@@ -73,10 +73,10 @@ function StockRouter() {
                 console.log('Error finding and sorting stock');
                 err.status = err.status || 500;
                 res.status(400).send('Error finding and sorting stock');
-                next(err); // Pass the error to error-handling middleware
+                next(err); 
             });
     });
-// Define GET request separately for '/stock/name/:name'
+//Define a get request separadamente para '/stock/name/:name'
 router.get('/stock/name/:name', function(req, res, next) {
     let name = req.params.name;
     Stock.findByName(name)
@@ -90,13 +90,13 @@ router.get('/stock/name/:name', function(req, res, next) {
             console.log('Stock not found');
             err.status = err.status || 500;
             res.status(400).send('Error finding stock');
-            next(err); // Pass the error to error-handling middleware
+            next(err); 
         });
 });
 
 
 
-    // Define PUT request separately for '/stock/:id'
+    //Define a PUT request separadamente para '/stock/:id'
     router.put('/stock/:id', function(req, res, next) {
         let body = req.body;
         let id = req.params.id;
@@ -111,7 +111,7 @@ router.get('/stock/name/:name', function(req, res, next) {
                 console.log('Stock not found or no changes made');
                 err.status = err.status || 500;
                 res.status(400).send('Error updating stock');
-                next(err); // Pass the error to error-handling middleware
+                next(err); 
             });
     });
 
@@ -130,7 +130,7 @@ router.get('/stock/name/:name', function(req, res, next) {
                 console.log('Stock not found or no changes made');
                 err.status = err.status || 500;
                 res.status(400).send('Error updating stock');
-                next(err); // Pass the error to error-handling middleware
+                next(err); 
             });
     });
 
@@ -148,7 +148,7 @@ router.get('/stock/name/:name', function(req, res, next) {
                 console.log('Stock not found');
                 err.status = err.status || 500;
                 res.status(400).send('Error deleting stock');
-                next(err); // Pass the error to error-handling middleware
+                next(err); 
             });
     });
 
@@ -167,7 +167,7 @@ router.get('/stock/name/:name', function(req, res, next) {
                 console.log('Stock not found');
                 err.status = err.status || 500;
                 res.status(400).send('Error deleting stock');
-                next(err); // Pass the error to error-handling middleware
+                next(err); 
             });
     });
 

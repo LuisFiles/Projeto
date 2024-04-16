@@ -1,16 +1,21 @@
-//Criamos a estrutura da nossa base de dados para o stock
+var mongoose = require('mongoose');
+var {ratings} = require ('stars-schema');
 
-const mongoose = require('mongoose');
+// Define o esquema para o modelo de stock
 let Schema = mongoose.Schema;
-var stockSchema = new Schema({
-    name: {type: String, required: true, unique: true},
-    quantity: {type: Number, required: true},
-    price: {type: Number, required: true},
-    category: {type: String, required: true},
-    description: {type: String, required: true},
-    image: {type: String, required: true},
-    rating: {type: Number, required: true},
+
+var StockSchema = new Schema({
+    name: {type: String, required: true, unique: true}, //Nome do produto em stock
+    number: {type: Number, required: true}, //Número de produtos em stock
+    price: {type: Number, required: true}, // Price of the stock (required) // Preço do produto em stock
+    category: {type: String, required: true}, // Categoria do produto em stock
+    description: {type: String, required: true}, // Descrição do produto em stock
+    image: {type: String, required: true},  // Imagem do produto em stock
+    rating: {type: Number, required: true} // Avaliação do produto em stock
 });
 
-let Stock = mongoose.model('Stock', stockSchema);
-module.exports = Stock; // Exporta o modelo Stock para ser utilizado em outros ficheiros
+// Cria o modelo de stock usando o esquema
+let Stock = mongoose.model('Stock', StockSchema);
+
+// Exporta o modelo de stock
+module.exports = Stock;
